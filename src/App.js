@@ -90,52 +90,45 @@ class App extends Component {
     // Wrapped in try-catch so we don't crash the browser
     try {
       for(let i = 0; i < steps.length; i++) {
-        // Encodes
-        if (steps[i][0] === 'ROT13-Cipher')
-        {
-          toReturn = caesarSalad.ROT13.Cipher().crypt(toReturn);
-        }
-        if (steps[i][0] === 'Vigenere-Cipher')
-        {
-          toReturn = caesarSalad.Vigenere.Cipher(steps[i][1].toString()).crypt(toReturn);
-        }
-        if (steps[i][0] === 'AES-Encrypt')
-        {
-          toReturn = CryptoJS.AES.encrypt(toReturn, steps[i][1]).toString();
-        }
-        if (steps[i][0] === 'Base64-Encode')
-        {
-          toReturn = btoa(toReturn);
-        }
-        if (steps[i][0] === 'RC4-Encrypt')
-        {
-          toReturn = CryptoJS.RC4.encrypt(toReturn, steps[i][1]).toString();
-        }
-        if (steps[i][0] === 'MD5-Hash (One Way)')
-        {
-          toReturn = CryptoJS.MD5(toReturn).toString();
-        }
-
-        // Decodes
-        if (steps[i][0] === 'ROT13-Decipher')
-        {
-          toReturn = caesarSalad.ROT13.Decipher().crypt(toReturn);
-        }
-        if (steps[i][0] === 'Vigenere-Decipher')
-        {
-          toReturn = caesarSalad.Vigenere.Decipher(steps[i][1].toString()).crypt(toReturn);
-        }
-        if (steps[i][0] === 'AES-Decrypt')
-        {
-          toReturn = CryptoJS.AES.decrypt(toReturn, steps[i][1]).toString(CryptoJS.enc.Utf8)
-        }
-        if (steps[i][0] === 'Base64-Decode')
-        {
-          toReturn = atob(toReturn);
-        }
-        if (steps[i][0] === 'RC4-Decrypt')
-        {
-          toReturn = CryptoJS.RC4.decrypt(toReturn, steps[i][1]).toString(CryptoJS.enc.Utf8);
+        switch (steps[i][0]) {
+          // Encodes
+          case 'ROT13-Cipher':
+            toReturn = caesarSalad.ROT13.Cipher().crypt(toReturn);
+            break;
+          case 'Vigenere-Cipher':
+            toReturn = caesarSalad.Vigenere.Cipher(steps[i][1].toString()).crypt(toReturn);
+            break;
+          case 'AES-Encrypt':
+            toReturn = CryptoJS.AES.encrypt(toReturn, steps[i][1]).toString();
+            break;
+          case 'Base64-Encode':
+            toReturn = btoa(toReturn);
+            break;
+          case 'RC4-Encrypt':
+            toReturn = CryptoJS.RC4.encrypt(toReturn, steps[i][1]).toString();
+            break;
+          case 'MD5-Hash (One Way)':
+            toReturn = CryptoJS.MD5(toReturn).toString();
+            break;
+            
+          // Decodes
+          case 'ROT13-Decipher':
+            toReturn = caesarSalad.ROT13.Decipher().crypt(toReturn);
+            break;
+          case 'Vigenere-Decipher':
+            toReturn = caesarSalad.Vigenere.Decipher(steps[i][1].toString()).crypt(toReturn);
+            break;
+          case 'AES-Decrypt':
+            toReturn = CryptoJS.AES.decrypt(toReturn, steps[i][1]).toString(CryptoJS.enc.Utf8)
+            break;
+          case 'Base64-Decode':
+            toReturn = atob(toReturn);
+            break;
+          case 'RC4-Decrypt':
+            toReturn = CryptoJS.RC4.decrypt(toReturn, steps[i][1]).toString(CryptoJS.enc.Utf8);
+            break;
+          default:
+            break;
         }
       }
     }
